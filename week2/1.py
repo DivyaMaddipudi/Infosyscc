@@ -128,3 +128,34 @@ evenDigits(2000,3000)"""
 #"testList = [lambda x: x ** 2,  lambda x: x ** 3,   lambda x: x ** 4]
 #for test in testList:
    # print(test(3))"
+
+#11
+'''import random
+f = open(r"E:\Git Folders\Infosyscc\word_scrambling\scramble.txt","r")
+word = f.read().split()
+
+jumble = ""
+
+for i in range(len(word)):
+    w = word[i]
+    #jumble[0] += word[0]
+    jumble[i] += word[i]
+    print(jumble)    
+    while w:
+
+        p = random.randrange(len(w))
+            
+        jumble +=  w[p]
+            
+        w = w[:p] + w[(p+1):]
+
+print(jumble)'''
+
+def intreverse(num):
+  rev = 0
+  while num>0:
+    rem = num%10 
+    rev = (rev * 10) + rem
+    num = num // 10
+  return rev
+print(intreverse(31511))
