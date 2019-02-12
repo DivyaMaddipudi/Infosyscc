@@ -1,59 +1,34 @@
 import random
+import re
+import os 
 
-def punc(s):
-        #s = "a,p."
-        li = [',','.','!',';']
-        for symbol in s:
-                if symbol in li:
-                        return ''.join(map(str, symbol))
-#x = punc(".ap.,")
+def scramble_word(word):
+    if len(word) <= 3:
+        return word
 
+    first, *mid, last = word[0] + word[1:-1] + word[-1]
+    random.shuffle(mid)
+    return first + "".join(mid) + last
 
-'''def shuffle_string(string):
-        return ''.join(e for e in string if e.isalnum())
-print(shuffle_string())'''
+def scramble_text(text):
+    '''li = [',','.','!',';']
+    for i in text:
+        if i in li:
+            return scramble_word(i)'''
+    return re.sub(r"\w+", lambda match: scramble_word(match.group()),text)
 
-def shuffle_string(string):
+def scramble_file(input_filename):
+    with open(input_filename) as input_file:
+        text = input_file.read()
 
-        st = ''.join(e for e in string if e.isalnum())        
-        chars = list(string)
-        random.shuffle(chars)
-        return ''.join(chars)
+    scrambled_text = scramble_text(text)
 
-def scramble(word):
+    '''with open(output_filename) as output_file:
+        output_file.write(scrambled_text)'''
 
-        if len(word) <= 3:
-                return word
-        else:        
-                first, mid, last = word[0], word[1:-1], word[-1]
+    f = open(r"E:\Git Folders\Infosyscc\word_scrambling\after_scramble.txt", "w")
+    f.write(scrambled_text)
 
-                y = str(punc(mid))
+x = input("enter input file name:")
 
-                x = first + shuffle_string(mid) + last 
-
-                return x + y
-
-def final(sentence):
-        words = sentence.split(' ')
-        return ' '.join(map(scramble, words))
-
-#print(final("infosy,s"))
-
-
-f = open(r"E:\Git Folders\Infosyscc\word_scrambling\scramble.txt", "r")
-a = f.read()
-
-scr = final(a)
-
-nf = open(r"E:\Git Folders\Infosyscc\word_scrambling\after_scramble.txt", "w")
-nf.write(scr)
-
-'''file_name = input('Enter file name:')
-with open(file_name) as f:
-        x = f.read()
-        print(x)
-        word = scramble(x)
-new_file=open(r"E:\Git Folders\Infosyscc\word_scrambling\after_scramble", "w")
-new_file.write(word)'''
-
-
+scramble_file(x)
